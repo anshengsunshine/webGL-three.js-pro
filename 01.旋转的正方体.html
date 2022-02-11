@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/three.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    /**
+     * 1. 搭建场景
+     * 2. 建设相机
+     * 3. 使用渲染器
+     * 4. 展示几何体
+     * */
+    var scene = new THREE.Scene(); // 搭建场景
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.5, 1000)  // 设置相机
+    var renderer = new THREE.WebGLRenderer() // 设置渲染器
+    renderer.setClearColor("#ffffff") //设置渲染器的颜色，如果不设置，即为黑色
+
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    // console.log(renderer)
+    document.body.appendChild(renderer.domElement)
+
+    var geometry = new THREE.CubeGeometry(2, 2, 2) // 设置几何体
+
+    var material = new THREE.MeshBasicMaterial({ color: 0xff0000 }) // 几何体颜色
+
+    var cube = new THREE.Mesh(geometry, material)  // 几何体的材质
+
+    scene.add(cube) // 几何体加入到场景中
+
+    camera.position.z = 3 // 调整相机的 近大远小，数值越大，几何体越小
+
+    function render() {
+        requestAnimationFrame(render);
+        cube.rotation.x += 0.01
+        cube.rotation.y -= 0.01
+        // cube.rotation.z += 0.01
+        renderer.render(scene, camera)
+    }
+    render()
+
+
+</script>
+
+</html>
